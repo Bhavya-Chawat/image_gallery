@@ -1,61 +1,367 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Here's the complete installation guide formatted in proper Markdown (.md format):
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+```markdown
+# Image Gallery - Laravel + Vue + Inertia + Docker Setup
 
-## About Laravel
+![Laravel](https://img.shields.io/badge/Laravel-11-red?logo=laravel)
+![Vue.js](https://img.shields.io/badge/Vue.js-3-green?logo=vue.js)
+![Docker](https://img.shields.io/badge/Docker-Compose-blue?logo=docker)
+![Inertia.js](https://img.shields.io/badge/Inertia.js-SPA-purple)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 📋 Project Overview
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+This project is a modern web application built with:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+**Backend Stack:**
+- **Laravel 11** - PHP framework
+- **PostgreSQL** - Primary database
+- **Redis** - Caching, sessions, job queues
+- **MinIO** - S3-compatible object storage
+- **Mailpit** - Email testing
 
-## Learning Laravel
+**Frontend Stack:**
+- **Vue 3** - JavaScript framework with Composition API
+- **Inertia.js** - Bridges Laravel and Vue (SPA-like experience)
+- **Tailwind CSS** - Utility-first CSS framework
+- **Vite** - Fast build tool with hot module replacement
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**Development Environment:**
+- **Docker (Laravel Sail)** - Containerized development
+- **WSL2 Optimized** - Enhanced performance on Windows
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🔧 Prerequisites
 
-## Laravel Sponsors
+### For Windows Users:
+- [x] **WSL2** installed and configured
+- [x] **Docker Desktop** for Windows with WSL2 integration enabled
+- [x] **Web browser** (Chrome, Firefox, etc.)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### For Linux/Mac Users:
+- [x] **Docker** and **Docker Compose** installed
+- [x] **Web browser**
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🚀 Installation Guide
 
-## Contributing
+### Step 1: Open Terminal
+- **Windows:** Open WSL2 terminal (Ubuntu/Debian)
+- **Linux/Mac:** Open terminal
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Step 2: Navigate to Projects Directory
+```
+cd ~
+mkdir -p projects
+cd projects
+```
 
-## Code of Conduct
+### Step 3: Create Laravel Project with Docker Services
+```
+# Create Laravel project with PostgreSQL, Redis, MinIO, and Mailpit
+curl -s "https://laravel.build/image_gallery?with=pgsql,redis,minio,mailpit" | bash
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+> **Note:** This command downloads and sets up a complete Laravel project with all necessary Docker services.
 
-## Security Vulnerabilities
+### Step 4: Navigate to Project Directory
+```
+cd image_gallery
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Step 5: Install Laravel Breeze with Vue + Inertia
+```
+# Install Breeze package
+./vendor/bin/sail composer require laravel/breeze --dev
 
-## License
+# Install Breeze with Vue + Inertia (includes Tailwind CSS)
+./vendor/bin/sail artisan breeze:install vue
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+**When prompted:**
+- Choose **"No"** for Inertia SSR (unless specifically needed)
+- Choose **"No"** for TypeScript (unless specifically needed)  
+- Choose testing framework preference (**PHPUnit recommended**)
+
+### Step 6: Install Frontend Dependencies
+```
+# Install npm packages (Vue, Inertia, Vite, Tailwind CSS)
+./vendor/bin/sail npm install --legacy-peer-deps
+```
+
+### Step 7: Configure Environment
+```
+# Generate application key
+./vendor/bin/sail artisan key:generate
+```
+
+**Update your `.env` file** with these Docker-optimized settings:
+
+```
+APP_NAME="Image Gallery" 
+APP_ENV=local
+APP_URL=http://localhost
+
+# Database - PostgreSQL Container
+DB_CONNECTION=pgsql
+DB_HOST=pgsql
+DB_PORT=5432
+DB_DATABASE=image_gallery
+DB_USERNAME=sail
+DB_PASSWORD=password
+
+# Cache & Sessions - Redis Container
+CACHE_STORE=redis
+SESSION_DRIVER=redis
+QUEUE_CONNECTION=redis
+REDIS_HOST=redis
+REDIS_PORT=6379
+
+# File Storage - MinIO Container
+FILESYSTEM_DISK=s3
+AWS_ACCESS_KEY_ID=sail
+AWS_SECRET_ACCESS_KEY=password
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=local
+AWS_USE_PATH_STYLE_ENDPOINT=true
+AWS_ENDPOINT=http://minio:9000
+AWS_URL=http://localhost:9000/local
+
+# Email Testing - Mailpit Container
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_FROM_ADDRESS="hello@image-gallery.local"
+```
+
+### Step 8: Start All Services
+```
+# Start Docker containers (Laravel, PostgreSQL, Redis, MinIO, Mailpit)
+./vendor/bin/sail up -d
+
+# Run database migrations (creates authentication tables)
+./vendor/bin/sail artisan migrate
+
+# Build frontend assets
+./vendor/bin/sail npm run build
+
+# Start development server with hot reload (run in separate terminal)
+./vendor/bin/sail npm run dev
+```
+
+---
+
+## ✅ Verification & Testing
+
+### 1. Access the Application
+- **Main Application:** http://localhost
+- **Authentication:** Try register/login functionality
+
+### 2. Test Services
+Create this test route in `routes/web.php`:
+
+```
+Route::get('/test-services', function () {
+    return response()->json([
+        'database' => DB::connection()->getPdo() ? '✅ PostgreSQL Connected' : '❌ Failed',
+        'redis' => Redis::connection()->ping() ? '✅ Redis Connected' : '❌ Failed',
+        'cache' => Cache::put('test', 'works') ? '✅ Cache Working' : '❌ Failed',
+        'storage' => Storage::disk('s3')->exists('') ? '✅ MinIO Working' : '❌ Failed'
+    ]);
+});
+```
+
+Visit: http://localhost/test-services
+
+### 3. Admin Panels
+- **MinIO Console:** http://localhost:8900
+  - Username: `sail`
+  - Password: `password`
+- **Email Testing:** http://localhost:8025
+
+---
+
+## 🔄 Development Commands
+
+### Starting the Application
+```
+# Start all services
+./vendor/bin/sail up -d
+
+# Start frontend with hot reload (separate terminal)
+./vendor/bin/sail npm run dev
+```
+
+### Common Laravel Commands
+```
+# Run migrations
+./vendor/bin/sail artisan migrate
+
+# Create new migration
+./vendor/bin/sail artisan make:migration create_posts_table
+
+# Create controller
+./vendor/bin/sail artisan make:controller PostController
+
+# Clear cache
+./vendor/bin/sail artisan cache:clear
+```
+
+### Frontend Commands
+```
+# Install new npm package
+./vendor/bin/sail npm install package-name
+
+# Build for production
+./vendor/bin/sail npm run build
+
+# Run development server
+./vendor/bin/sail npm run dev
+```
+
+### Database Management
+```
+# Access PostgreSQL
+./vendor/bin/sail exec pgsql psql -U sail -d image_gallery
+
+# Run database seeder
+./vendor/bin/sail artisan db:seed
+```
+
+---
+
+## 📁 Project Structure
+
+```
+image_gallery/
+├── app/                    # Laravel backend code
+│   ├── Http/Controllers/   # Controllers
+│   ├── Models/            # Eloquent models
+│   └── ...
+├── resources/js/
+│   ├── Pages/             # Vue components (Inertia pages)
+│   │   ├── Auth/          # Login, Register pages
+│   │   ├── Dashboard.vue  # Dashboard page
+│   │   └── Welcome.vue    # Welcome page
+│   ├── Components/        # Reusable Vue components
+│   ├── Layouts/          # Vue layouts (AuthenticatedLayout, etc.)
+│   └── app.js            # Inertia + Vue setup
+├── resources/css/         # Tailwind CSS
+├── routes/web.php         # Web routes
+├── database/migrations/   # Database migrations
+├── docker-compose.yml     # Docker services configuration
+├── vite.config.js        # Vite configuration
+├── tailwind.config.js    # Tailwind CSS configuration
+└── package.json          # Frontend dependencies
+```
+
+---
+
+## 🛠️ Technology Stack Details
+
+| Category | Technology | Purpose |
+|----------|-----------|---------|
+| **Backend** | Laravel 11 | PHP framework |
+| **Database** | PostgreSQL | Primary database |
+| **Cache** | Redis | Caching, sessions, queues |
+| **Storage** | MinIO | S3-compatible object storage |
+| **Email** | Mailpit | Email testing |
+| **Frontend** | Vue 3 | JavaScript framework |
+| **SPA** | Inertia.js | Laravel-Vue bridge |
+| **CSS** | Tailwind CSS | Utility-first styling |
+| **Build** | Vite | Fast build tool |
+| **Auth** | Laravel Breeze | Authentication scaffolding |
+
+### Features:
+- ✅ Complete authentication system (register, login, password reset)
+- ✅ Responsive design with Tailwind CSS
+- ✅ Hot reload during development
+- ✅ Optimized for performance
+- ✅ Docker containerization
+- ✅ Production-ready setup
+
+---
+
+## 🔧 Troubleshooting
+
+### Port Conflicts
+```
+# Check running containers
+./vendor/bin/sail ps
+
+# Stop services
+./vendor/bin/sail down
+
+# Start again
+./vendor/bin/sail up -d
+```
+
+### Frontend Issues
+```
+# Clear Vite cache
+./vendor/bin/sail npm run build
+
+# Reinstall dependencies
+rm -rf node_modules package-lock.json
+./vendor/bin/sail npm install --legacy-peer-deps
+```
+
+### Database Issues
+```
+# Reset database
+./vendor/bin/sail artisan migrate:fresh --seed
+```
+
+### Common Error: "Vite manifest not found"
+```
+# Build assets first
+./vendor/bin/sail npm run build
+# OR start dev server
+./vendor/bin/sail npm run dev
+```
+
+---
+
+## ⚡ Performance Notes
+
+- **WSL2 Optimization:** Project is located in WSL2 filesystem (`~/projects/`) for optimal performance
+- **Container-based:** All PHP, Node.js, and database operations run in containers
+- **Hot Reload:** Vite provides instant feedback during development
+- **Production Ready:** Built assets are optimized for production deployment
+
+---
+
+## 🆘 Support
+
+For any issues during setup:
+
+1. **Ensure Docker Desktop is running**
+2. **Verify WSL2 integration is enabled**
+3. **Check that all ports are available:**
+   - `80` - Laravel application
+   - `5432` - PostgreSQL
+   - `6379` - Redis
+   - `9000` - MinIO API
+   - `8900` - MinIO Console
+   - `1025` - Mailpit SMTP
+   - `8025` - Mailpit Web UI
+4. **Ensure `./vendor/bin/sail` commands are run from the project directory**
+
+---
+
+## 📝 Additional Notes
+
+> **Important:** This setup provides a complete, modern web development environment with Laravel, Vue.js, and Docker, optimized for both development and production use.
+
+**Development Workflow:**
+1. Start containers: `./vendor/bin/sail up -d`
+2. Start frontend dev server: `./vendor/bin/sail npm run dev`
+3. Make changes to Vue components in `resources/js/Pages/`
+4. Changes auto-reload in browser
+5. Build for production: `./vendor/bin/sail npm run build`
+
+---
+
+*This installation guide ensures a consistent, reproducible development environment for all team members and judges.*
+```
