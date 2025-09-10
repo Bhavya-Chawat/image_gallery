@@ -1,6 +1,4 @@
-Here's the complete installation guide formatted in proper Markdown (.md format):
 
-```markdown
 # Image Gallery - Laravel + Vue + Inertia + Docker Setup
 
 ![Laravel](https://img.shields.io/badge/Laravel-11-red?logo=laravel)
